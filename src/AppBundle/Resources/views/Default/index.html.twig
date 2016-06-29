@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('components/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('components/animate.css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="app" class="container">
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ asset('components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('components/react/react.min.js') }}"></script>
+    <script src="{{ asset('components/react/react-dom.min.js') }}"></script>
+    <script src="{{ asset('components/babel-standalone/babel.min.js') }}"></script>
+    {% include 'AppBundle::_router.html.twig' %}
+    <script src="{{ asset('js/app.js') }}" type="text/babel"></script>
+{% endblock %}
