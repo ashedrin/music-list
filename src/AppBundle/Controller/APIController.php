@@ -15,12 +15,31 @@ class APIController extends Controller {
     /** @Route("/songs", name="api-songs") */
     public function songsAction(Request $request) {
         $manager = $this->getDoctrine()->getManager();
-        $songs = $manager->getRepository('AppBundle:Song')->createQueryBuilder('s')
+
+        $builder = $manager->getRepository('AppBundle:Song')->createQueryBuilder('s')
             ->select('s.id, p.title as performer, g.title as genre, s.title, s.year')
             ->leftJoin('s.performer', 'p')
-            ->leftJoin('s.genre', 'g')
-            ->getQuery()
-            ->getResult(Query::HYDRATE_ARRAY);
+            ->leftJoin('s.genre', 'g');
+
+        $performerId = $request->get('performer');
+        if($performerId != '') {
+            $builder->andWhere('p.id = :performerId')
+                ->setParameter('performerId', $performerId);
+        }
+
+        $genreId = $request->get('genre');
+        if($genreId != '') {
+            $builder->andWhere('g.id = :genreId')
+                ->setParameter('genreId', $genreId);
+        }
+
+        $year = $request->get('year');
+        if($year != '') {
+            $builder->andWhere('s.year = :year')
+                ->setParameter('year', $year);
+        }
+
+        $songs = $builder->getQuery()->getResult(Query::HYDRATE_ARRAY);
         return new JsonResponse($songs);
     }
 
