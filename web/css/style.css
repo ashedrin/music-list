@@ -61,6 +61,23 @@ h1, h2, h3, h4, h5 {
       height: 500px;
       overflow-x: hidden;
       overflow-y: scroll; }
+      .music-list .list > .wrap .loading {
+        float: left;
+        width: 100px;
+        height: 100px;
+        font-size: 100px;
+        margin-left: -50px;
+        margin-top: -50px;
+        position: relative;
+        left: 50%;
+        top: 40%;
+        opacity: 0.5; }
+      .music-list .list > .wrap .message {
+        float: left;
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.2); }
 
 .filters-container {
   position: fixed;

@@ -1,7 +1,7 @@
 var SongList = React.createClass({
 
     getInitialState: function() {
-        return { songs: [] };
+        return { songs: [], loading: false };
     },
 
     componentDidMount: function() {
@@ -18,8 +18,9 @@ var SongList = React.createClass({
 
     loadSongs: function() {
         let $this = this;
+        this.setState({loading: true});
         $.get(Router.getPath('api-songs'), this.props.selectedFilters, function(response){
-            $this.setState({ songs: response });
+            $this.setState({ songs: response, loading: false });
         });
     },
 
@@ -60,7 +61,12 @@ var SongList = React.createClass({
                     </div>
                     <div className="list">
                         <div className="wrap">
-                            {this.state.songs.map(song => <Song song={song} />)}
+                            {this.state.loading && <i className="fa fa-spinner fa-pulse fa-3x fa-fw loading"/>}
+                            {!this.state.loading && this.state.songs.map(song => <Song song={song} />)}
+                            {
+                                this.state.songs.length == 0 &&
+                                <div className="message">Этому набору фильтров не соответствует ни одна композиция</div>
+                            }
                         </div>
                     </div>
                 </div>

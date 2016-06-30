@@ -14,6 +14,7 @@ class APIController extends Controller {
 
     /** @Route("/songs", name="api-songs") */
     public function songsAction(Request $request) {
+
         $manager = $this->getDoctrine()->getManager();
 
         $builder = $manager->getRepository('AppBundle:Song')->createQueryBuilder('s')
