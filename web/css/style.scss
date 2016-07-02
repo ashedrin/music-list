@@ -30,12 +30,22 @@ h1, h2, h3, h4, h5 {
       cursor: pointer;
       padding-left: 25px;
     }
+    .sort-asc {
+      .sort-group {
+        .fa-caret-up { color: #fff; }
+      }
+    }
+    .sort-desc {
+      .sort-group {
+        .fa-caret-down { color: #fff; }
+      }
+    }
     .sort-group {
       display: inline-block;
       width: 10px;
       position: relative;
       top: 6px;
-      margin-left: 4px;
+      margin-left: 10px;
       .fa {
         float: left;
         color: rgba(255, 255, 255, 0.3);

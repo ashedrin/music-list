@@ -26,12 +26,16 @@ h1, h2, h3, h4, h5 {
     .music-list .headline .col {
       cursor: pointer;
       padding-left: 25px; }
+    .music-list .headline .sort-asc .sort-group .fa-caret-up {
+      color: #fff; }
+    .music-list .headline .sort-desc .sort-group .fa-caret-down {
+      color: #fff; }
     .music-list .headline .sort-group {
       display: inline-block;
       width: 10px;
       position: relative;
       top: 6px;
-      margin-left: 4px; }
+      margin-left: 10px; }
       .music-list .headline .sort-group .fa {
         float: left;
         color: rgba(255, 255, 255, 0.3); }
