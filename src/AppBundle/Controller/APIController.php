@@ -20,7 +20,8 @@ class APIController extends Controller {
         $builder = $manager->getRepository('AppBundle:Song')->createQueryBuilder('s')
             ->select('s.id, p.title as performer, g.title as genre, s.title, s.year')
             ->leftJoin('s.performer', 'p')
-            ->leftJoin('s.genre', 'g');
+            ->leftJoin('s.genre', 'g')
+            ->orderBy('p.title', 'ASC');
 
         $performerId = $request->get('performer');
         if($performerId != '') {
