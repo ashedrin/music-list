@@ -43,19 +43,19 @@ h1, h2, h3, h4, h5 {
         margin-top: -15px;
         position: relative;
         top: 6px; }
-  .music-list .item {
+  .music-list .song {
     background: rgba(255, 255, 255, 0.2);
     margin-bottom: 5px;
     padding-bottom: 5px;
     padding-top: 5px;
     padding-left: 10px;
     cursor: pointer; }
-    .music-list .item:hover {
+    .music-list .song:hover {
       background: rgba(255, 255, 255, 0.3); }
   .music-list .list {
     float: left;
     width: 100%;
-    height: 500px;
+    height: 450px;
     overflow: hidden; }
     .music-list .list > .wrap {
       float: left;
@@ -100,5 +100,24 @@ h1, h2, h3, h4, h5 {
     .filters .form-group .form-control option {
       color: #fff;
       background: rgba(0, 0, 0, 0.5); }
+
+.pagination-item, .pagination > .item, .display-counter .item {
+  display: inline-block;
+  padding: 5px 10px;
+  color: #fff;
+  margin-right: 1px;
+  min-width: 25px;
+  cursor: pointer; }
+  .pagination-item.current, .pagination > .current.item, .display-counter .current.item {
+    background: rgba(255, 255, 255, 0.2); }
+
+.pagination {
+  float: left;
+  width: 100%;
+  text-align: center; }
+
+.display-counter {
+  float: right;
+  margin-top: -40px; }
 
 /*# sourceMappingURL=style.css.map */

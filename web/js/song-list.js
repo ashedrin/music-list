@@ -12,7 +12,10 @@ let SongList = React.createClass({
     getInitialState: function() {
         return { 
             songs: [], 
-            loading: false, 
+            loading: false,
+            displayCount: 10,
+            page: 1,
+            pageCount: 1,
             sort: { 
                 trigger: SORT_TRIGGER_PERFORMER, 
                 direction: SORT_TRIGGER_DIRECTION_ASC
@@ -44,15 +47,26 @@ let SongList = React.createClass({
         if(
             this.props.selectedFilters.performer != prevProps.selectedFilters.performer ||
             this.props.selectedFilters.genre != prevProps.selectedFilters.genre ||
-            this.props.selectedFilters.year != prevProps.selectedFilters.year
+            this.props.selectedFilters.year != prevProps.selectedFilters.year ||
+            this.state.page != prevState.page ||
+            this.state.displayCount != prevState.displayCount
         ) { this.loadSongs(); }
     },
 
     loadSongs: function() {
         let $this = this;
         this.setState({loading: true});
-        $.get(Router.getPath('api-songs'), this.props.selectedFilters, function(response){
-            $this.setState({ songs: response, loading: false });
+
+        let sendData = this.props.selectedFilters;
+        sendData.page = this.state.page;
+        sendData.displayCount = this.state.displayCount;
+
+        $.get(Router.getPath('api-songs'), sendData, function(response){
+            $this.setState({
+                songs: response.songs,
+                loading: false,
+                pageCount: Math.floor(response.totalCount / $this.state.displayCount)
+            });
         });
     },
     
@@ -66,6 +80,17 @@ let SongList = React.createClass({
                 }
             }
         );
+    },
+    
+    displayCounterChange: function(event) {
+        this.setState({
+            displayCount: event.target.getAttribute('data-count'),
+            page: 1
+        });
+    },
+
+    pageChange: function(event) {
+        this.setState({page: event.target.getAttribute('data-page')});
     },
 
     getSortTriggersCSSClasses: function() {
@@ -105,6 +130,11 @@ let SongList = React.createClass({
         return (
             <div className="col-sm-9 pull-right">
                 <h3>Песни</h3>
+                <DisplayCounter 
+                    items={[10, 25, 50, 100]} 
+                    currentDisplayCount={this.state.displayCount}
+                    change={this.displayCounterChange}
+                />
                 <div className="music-list">
                     <div className="row headline">
                         <div
@@ -163,6 +193,11 @@ let SongList = React.createClass({
                         </div>
                     </div>
                 </div>
+                <Pagination 
+                    pageCount={this.state.pageCount}
+                    currentPage={this.state.page}
+                    change={this.pageChange}
+                />
             </div>
         );
     }

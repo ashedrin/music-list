@@ -40,8 +40,14 @@ class APIController extends Controller {
                 ->setParameter('year', $year);
         }
 
-        $songs = $builder->getQuery()->getResult(Query::HYDRATE_ARRAY);
-        return new JsonResponse($songs);
+        $songsCount = count($builder->getQuery()->getResult());
+
+        $songs = $builder
+            ->setFirstResult(($request->get('page') - 1) * $request->get('displayCount'))
+            ->setMaxResults($request->get('displayCount'))
+            ->getQuery()->getResult(Query::HYDRATE_ARRAY);
+
+        return new JsonResponse(array('songs' => $songs, 'totalCount' => $songsCount));
     }
 
     /** @Route("/filters", name="api-filters") */
